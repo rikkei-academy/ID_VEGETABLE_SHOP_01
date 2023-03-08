@@ -114,6 +114,7 @@ public class UserController {
         String authorizationHeader = request.getHeader("Authorization");
 
         // Clear the authentication from server-side (in this case, Spring Security)
+        /// Clear the authentication from server-side (in this case, Spring Security)
         SecurityContextHolder.clearContext();
 
         return ResponseEntity.ok("You have been logged out.");
