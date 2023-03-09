@@ -11,5 +11,6 @@ public interface UserService {
     boolean existsByEmail(String email);
     Users saveOrUpdate(Users user);
     Users findUserById(int userId);
-    List<Users> findAllUsers();
+    List<Users>findAllUser();
+
 }
