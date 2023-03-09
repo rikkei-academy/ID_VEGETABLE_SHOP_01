@@ -144,6 +144,8 @@ public class UserController {
     }
     @GetMapping()
 //    @PreAuthorize(" hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    //    @PreAuthorize(" hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+
 
     @PreAuthorize(" hasRole('ADMIN')")
     public List<Users> getAllUsers(){
