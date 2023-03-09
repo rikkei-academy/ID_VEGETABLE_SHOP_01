@@ -116,6 +116,7 @@ public class UserController {
 
         // Clear the authentication from server-side (in this case, Spring Security)
         /// Clear the authentication from server-side (in this case, Spring Security)
+        /// Clear the authentication from server-side (in this case, Spring Security)''
         SecurityContextHolder.clearContext();
 
         return ResponseEntity.ok("You have been logged out.");
