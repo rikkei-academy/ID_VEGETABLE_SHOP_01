@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ra.jwt.JwtTokenProvider;
+import ra.model.dto.ChangePassword;
 import ra.model.entity.ERole;
 import ra.model.entity.Roles;
 import ra.model.entity.Users;
@@ -118,6 +119,33 @@ public class UserController {
         SecurityContextHolder.clearContext();
 
         return ResponseEntity.ok("You have been logged out.");
+    }
+    @PostMapping("resetPassword")
+
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> changePassWord(@RequestBody ChangePassword changePassword){
+        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users users = userService.findUserById(customUserDetails.getUserId());
+        boolean check = encoder.matches(changePassword.getOldPassword(),users.getPassWord());
+        //Đổi mật khẩu
+        if (check){
+            if (changePassword.getNewPassword().equals(changePassword.getComfimlNewPass())){
+                users.setPassWord(encoder.encode(changePassword.getNewPassword()));
+                userService.saveOrUpdate(users);
+
+                return ResponseEntity.ok("Đổi mật khẩu thành công!");
+            }else {
+                return ResponseEntity.ok("Nhập lại mật khẩu không chính xác!");
+            }
+        }else {
+            return ResponseEntity.ok("Mật khẩu cũ không chính xác!");
+        }
+
+    }
+    @GetMapping()
+    @PreAuthorize(" hasRole('ADMIN')")
+    public List<Users> getAllUsers(){
+        return userService.findAllUser();
     }
 
 }
