@@ -12,5 +12,7 @@ public interface UserService {
     Users saveOrUpdate(Users user);
     Users findUserById(int userId);
     List<Users>findAllUser();
+    Users findByEmail(String email);
+
 
 }

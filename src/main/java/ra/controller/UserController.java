@@ -46,6 +46,7 @@ public class UserController {
     @Autowired
     private PasswordEncoder encoder;
 
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SigupRequest signupRequest) {
         if (userService.existsByUserName(signupRequest.getUserName())) {
@@ -74,10 +75,6 @@ public class UserController {
                         Roles adminRole = roleService.findByRoleName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
                         listRoles.add(adminRole);
-                    case "moderator":
-                        Roles modRole = roleService.findByRoleName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-                        listRoles.add(modRole);
                     case "user":
                         Roles userRole = roleService.findByRoleName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
@@ -123,7 +120,7 @@ public class UserController {
     }
     @PostMapping("resetPassword")
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> changePassWord(@RequestBody ChangePassword changePassword){
         CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users users = userService.findUserById(customUserDetails.getUserId());
@@ -152,5 +149,10 @@ public class UserController {
     public List<Users> getAllUsers(){
         return userService.findAllUser();
     }
+    @GetMapping("/{userId}")
+    public Users getUserById(@PathVariable ("userId")int userId){
+        return  userService.findUserById(userId);
+    }
+
 
 }
