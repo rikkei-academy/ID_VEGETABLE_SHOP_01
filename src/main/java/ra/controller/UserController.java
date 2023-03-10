@@ -182,6 +182,8 @@ public class UserController {
         else {
             users.setUserStatus(!users.isUserStatus());
 //            System.out.println("status"+ users.isUserStatus());
+            //            System.out.println("status"+ users.isUserStatus());
+
             userService.saveOrUpdate(users);
             return ResponseEntity.ok(("Đã cập nhật trạng thái Tài Khoản thành công"));
 
