@@ -1,20 +1,36 @@
 package ra.payload.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
+@Data
 
 public class JwtResponse {
     private String token;
     private String type = "Bearer";
+    private int userId;
     private String userName;
+    private String firstName;
+    private String lastName;
+
+    private String adress;
     private String email;
     private String phone;
+    private  boolean userStatus;
     private List<String> listRoles;
 
-    public JwtResponse(String token, String userName, String email, String phone, List<String> listRoles) {
+    public JwtResponse(String token, int userId, String userName, String firstName, String lastName, String adress, String email, String phone, boolean userStatus, List<String> listRoles) {
         this.token = token;
+        this.userId = userId;
         this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+        this.adress = adress;
         this.email = email;
         this.phone = phone;
+        this.userStatus = userStatus;
         this.listRoles = listRoles;
     }
 

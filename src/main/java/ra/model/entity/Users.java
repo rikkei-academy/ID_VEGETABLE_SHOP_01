@@ -40,8 +40,10 @@ public class Users {
     private boolean userStatus;
     @Column(name = "Adress")
     private String adress;
-    @Column(name = "FullName")
-    private String fullName;
+    @Column(name = "FirstName")
+    private String firstName;
+    @Column(name = "LastName")
+    private String lastName;
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<OrDers> orDersList = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)

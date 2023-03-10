@@ -15,5 +15,8 @@ public interface UserRepository extends JpaRepository<Users,Integer> {
     Users findByEmail(String email);
     @Query (value = "from Users u where u.userStatus=true ")
     List<Users> findAllUser();
+    List<Users>searchByUserNameContainingOrUserId(String userName,int userId);
+    List<Users>findUsersByAdress(String address);
+
 
 }

@@ -36,7 +36,7 @@ public class PassResetController {
     private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("/resetPassword")
-    public ResponseEntity<?> resetPassword(@RequestParam("email") String userEmail, HttpServletRequest request) {
+    public ResponseEntity<?> resetPassword(@RequestParam("userEmail") String userEmail, HttpServletRequest request) {
         Users user = (Users) userService.findByUserName(userEmail);
         if (userService.existsByEmail(userEmail)) {
             Users users = (Users) userService.findByEmail(userEmail);
@@ -59,7 +59,7 @@ public class PassResetController {
             return new ResponseEntity<>(new MessageResponse("Email is not already"), HttpStatus.EXPECTATION_FAILED);
         }
     }
-    @PostMapping("/creatNewPass")
+    @PutMapping ("/creatNewPass")
     public ResponseEntity<?> creatNewPass(@RequestParam("token") String token, @RequestParam("newPassword") String newPassword) {
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         PasswordResetToken passwordResetToken = passResetService.getLastTokenByUserId(userDetails.getUserId());
