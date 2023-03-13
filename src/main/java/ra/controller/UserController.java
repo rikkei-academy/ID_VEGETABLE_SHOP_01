@@ -14,18 +14,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ra.jwt.JwtTokenProvider;
-import ra.model.dto.ChangePassword;
-import ra.model.dto.UserDTO;
+import ra.model.dto.respon.ChangePassword;
+import ra.model.dto.respon.UserDTO;
 import ra.model.entity.ERole;
+import ra.model.entity.OrDers;
 import ra.model.entity.Roles;
 import ra.model.entity.Users;
 import ra.model.service.RoleService;
 import ra.model.service.UserService;
-import ra.payload.request.LoginRequest;
-import ra.payload.request.SigupRequest;
-import ra.payload.request.StatusRequest;
-import ra.payload.response.JwtResponse;
-import ra.payload.response.MessageResponse;
+import ra.model.dto.request.LoginRequest;
+import ra.model.dto.request.SigupRequest;
+import ra.model.dto.respon.JwtResponse;
+import ra.model.dto.respon.MessageResponse;
 import ra.sercurity.CustomUserDetails;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,6 +69,8 @@ public class UserController {
         user.setAdress(signupRequest.getAdress());
         user.setFirstName(signupRequest.getFirstName());
         user.setLastName(signupRequest.getLastName());
+        user.setAvartar(signupRequest.getAvartar());
+
         user.setCreated(LocalDateTime.now());
         Set<String> strRoles = signupRequest.getListRoles();
         Set<Roles> listRoles = new HashSet<>();
@@ -92,6 +94,10 @@ public class UserController {
         }
         user.setListRoles(listRoles);
         userService.saveOrUpdate(user);
+        OrDers orDers =new OrDers();
+        orDers.setUsers((Users)userService.saveOrUpdate(user));
+        orDers.setStatus(0);
+//        orderService.saveAndUpdate(orDers);
         return ResponseEntity.ok(new MessageResponse("User registered successfully"));
     }
 //---------------------------------------SignIn-------------------------------------------------------
@@ -185,7 +191,7 @@ public class UserController {
             //            System.out.println("status"+ users.isUserStatus());
 
             userService.saveOrUpdate(users);
-            return ResponseEntity.ok(("Đã cập nhật trạng thái Tài Khoản thành công"));
+            return ResponseEntity.ok(("Đã khóa tài khoản thành công"));
 
         }
     }
@@ -217,7 +223,7 @@ public class UserController {
         data.put("total",usersPage.getSize());
         data.put("totaLItem",usersPage.getTotalElements());
         data.put("totalPage",usersPage.getTotalPages());
-        return new ResponseEntity<>(data,HttpStatus.OK);
+        return new  ResponseEntity<>(data,HttpStatus.OK);
 
 
     }

@@ -28,7 +28,9 @@ public class OrDers {
     @Column(name = "Total")
     private float total;
     @Column(name = "Status")
-    private boolean status =true;
+    private int status;
+    @Column(name = "note")
+    private String note;
     @Column(name = "Country",nullable = false)
     private String country;
     @Column(name = "Adress",nullable = false)
@@ -40,7 +42,7 @@ public class OrDers {
 
     @OneToMany(mappedBy = "orDers",cascade = CascadeType.ALL)
     private List<OrDerDetail> orDerDetailList=new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UserId")
     private Users users;
 

@@ -1,4 +1,4 @@
-package ra.payload.request;
+package ra.model.dto.request;
 
 import lombok.Data;
 

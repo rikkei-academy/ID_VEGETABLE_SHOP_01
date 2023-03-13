@@ -1,4 +1,4 @@
-package ra.payload.response;
+package ra.model.dto.respon;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +13,7 @@ public class JwtResponse {
     private String userName;
     private String firstName;
     private String lastName;
+    private String avartar;
 
     private String adress;
     private String email;

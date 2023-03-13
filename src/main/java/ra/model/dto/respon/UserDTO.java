@@ -1,4 +1,4 @@
-package ra.model.dto;
+package ra.model.dto.respon;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

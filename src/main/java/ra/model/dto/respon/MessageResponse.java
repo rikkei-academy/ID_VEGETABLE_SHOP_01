@@ -1,4 +1,4 @@
-package ra.payload.response;
+package ra.model.dto.respon;
 
 public class MessageResponse {
     private String message;

@@ -22,5 +22,7 @@ public class Event {
     private String  content;
     @Column(name = "image")
     private String image;
+    @Column(name = "Status")
+    private boolean status;
 
 }
