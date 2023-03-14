@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
@@ -93,6 +94,32 @@ public class CatalogController {
         return new ResponseEntity<>(data,HttpStatus.OK);
    }
 
+    @GetMapping("/sortByNameAndId")
+    public ResponseEntity<List<Catalog>> sortByNameAndId(@RequestParam("directionName") String directionName,
+                                                              @RequestParam("directionId") String directionId) {
+        List<Catalog> listCatalog = catalogService.sortByNameAndId(directionName, directionId);
+        return new ResponseEntity<>(listCatalog, HttpStatus.OK);
+    }
 
+    @GetMapping("/getPaggingAndSortByName")
+    public ResponseEntity<Map<String,Object>>getPaggingAndSortByName(@RequestParam(defaultValue = "0")int page,
+                                                                     @RequestParam(defaultValue = "3")int size,
+                                                                     @RequestParam String direction
+                                                                     ){
+        Sort.Order order;
+        if (direction.equals("asc")){
+            order=new Sort.Order(Sort.Direction.ASC,"catalogName");
+        }else {
+            order=new Sort.Order(Sort.Direction.DESC,"catalogName");
+        }
+        Pageable pageable=PageRequest.of(page, size,Sort.by(order));
+        Page<Catalog>catalogPage =catalogService.getPaggingCatalog(pageable);
+        Map<String,Object> data =new HashMap<>();
+        data.put("catalog",catalogPage.getContent());
+        data.put("total",catalogPage.getSize());
+        data.put("item",catalogPage.getTotalElements());
+        data.put("totalPage",catalogPage.getTotalPages());
+        return new ResponseEntity<>(data,HttpStatus.OK);
+    }
 
 }

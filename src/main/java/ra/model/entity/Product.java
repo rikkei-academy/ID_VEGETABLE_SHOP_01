@@ -9,7 +9,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "product")
 @Entity
@@ -49,8 +51,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "catalogID")
     private Catalog catalog;
-    @ManyToOne
-    @JoinColumn(name = "detaiId")
+
+
+    @OneToMany(mappedBy = "product")
     @JsonIgnore
-    private OrDerDetail orDerDetail;
+    private List<OrDerDetail> orDerDetailList=new ArrayList<>();
 }
