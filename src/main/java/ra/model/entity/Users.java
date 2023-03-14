@@ -44,6 +44,8 @@ public class Users {
     private String firstName;
     @Column(name = "LastName")
     private String lastName;
+    @Column(name = "Avartar")
+    private String avartar;
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<OrDers> orDersList = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)

@@ -1,12 +1,11 @@
 package ra.model.serviceImp;
 
-import com.sun.org.apache.bcel.internal.generic.LUSHR;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ra.model.dto.UserDTO;
+import ra.model.dto.respon.UserDTO;
 import ra.model.entity.Users;
 import ra.model.repository.UserRepository;
 import ra.model.service.UserService;

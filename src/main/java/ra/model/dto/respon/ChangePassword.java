@@ -1,4 +1,4 @@
-package ra.model.dto;
+package ra.model.dto.respon;
 
 import lombok.Data;
 
