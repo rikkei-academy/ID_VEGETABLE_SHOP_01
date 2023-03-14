@@ -23,13 +23,14 @@ public class OrDerDetail {
     private int detaiId;
     @Column(name = "price")
     private float price;
-    @Column(name = "CreDate")
-    private Date creDate;
+//    @Column(name = "CreDate")
+//    private Date creDate;
     @Column(name = "Quantity")
 
     private int quantity;
-    @OneToMany(mappedBy = "orDerDetail", cascade = CascadeType.ALL)
-    private List<Product> productList = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
     @ManyToOne
     @JoinColumn(name = "OrderId")
     private OrDers orDers;

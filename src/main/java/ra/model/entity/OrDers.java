@@ -1,5 +1,6 @@
 package ra.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,19 +32,23 @@ public class OrDers {
     private int status;
     @Column(name = "note")
     private String note;
-    @Column(name = "Country",nullable = false)
+    @Column(name = "Country")
     private String country;
-    @Column(name = "Adress",nullable = false)
+    @Column(name = "Adress")
     private String adress;
-    @Column(name = "City",nullable = false)
+    @Column(name = "City")
     private String city;
     @Column(name = "PostCode")
     private int postCode;
+    @Column(name = "phone")
+    private String phone;
 
     @OneToMany(mappedBy = "orDers",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<OrDerDetail> orDerDetailList=new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UserId")
+    @JsonIgnore
     private Users users;
 
 
