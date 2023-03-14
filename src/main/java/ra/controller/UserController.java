@@ -20,6 +20,7 @@ import ra.model.entity.ERole;
 import ra.model.entity.OrDers;
 import ra.model.entity.Roles;
 import ra.model.entity.Users;
+import ra.model.service.OrderService;
 import ra.model.service.RoleService;
 import ra.model.service.UserService;
 import ra.model.dto.request.LoginRequest;
@@ -41,6 +42,7 @@ import static ra.model.entity.ERole.ROLE_ADMIN;
 
 
 public class UserController {
+
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -51,6 +53,7 @@ public class UserController {
     private RoleService roleService;
     @Autowired
     private PasswordEncoder encoder;
+
     //------------------------------------------SignUp--------------------------------------------------
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SigupRequest signupRequest) {
@@ -94,10 +97,7 @@ public class UserController {
         }
         user.setListRoles(listRoles);
         userService.saveOrUpdate(user);
-        OrDers orDers =new OrDers();
-        orDers.setUsers((Users)userService.saveOrUpdate(user));
-        orDers.setStatus(0);
-//        orderService.saveAndUpdate(orDers);
+
         return ResponseEntity.ok(new MessageResponse("User registered successfully"));
     }
 //---------------------------------------SignIn-------------------------------------------------------

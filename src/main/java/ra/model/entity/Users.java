@@ -44,11 +44,13 @@ public class Users {
     private String firstName;
     @Column(name = "LastName")
     private String lastName;
+    @Column(name = "FullName")
+    private String fullName;
     @Column(name = "Avartar")
     private String avartar;
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "users")
     private List<OrDers> orDersList = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "UserId"), inverseJoinColumns = @JoinColumn(name = "RoleId"))
     private Set<Roles> listRoles = new HashSet<>();
 }
